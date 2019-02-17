@@ -1,0 +1,29 @@
+<configuration scan="true" scanPeriod="30 seconds">
+    <jmxConfigurator />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CLOUDWATCH" class="com.j256.cloudwatchlogbackappender.CloudWatchAppender">
+        <region>us-east-1</region>
+        <accessKeyId>XXXXXXX</accessKeyId>
+        <secretKey>XXXXXXX</secretKey>
+        <logGroup>test-loggroup</logGroup>
+        <logStream>test-logstream</logStream>
+        <layout>
+            <pattern>[%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
+        </layout>
+        <maxBatchSize>32</maxBatchSize>
+    </appender>
+
+    <logger name="sample.aws.cloudwatch.logs" level="DEBUG" >
+        <appender-ref ref="CLOUDWATCH"/>
+    </logger>
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

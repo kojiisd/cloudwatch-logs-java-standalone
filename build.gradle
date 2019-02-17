@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group 'sample.aws.cloudwatch'
+version '0.1'
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+mainClassName = 'sample.aws.cloudwatch.logs.SampleAWSCloudWatchLogs'
+
+sourceCompatibility = 11
+
+targetCompatibility = 11
+sourceSets {
+    main {
+     output.resourcesDir = java.outputDir
+  }
+}
+idea.module.outputDir file("out/production/classes")
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.13'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.483'
+    compile group: 'ch.qos.logback', name : 'logback-classic', version: '1.2.3'
+    compile group: 'com.j256.cloudwatchlogbackappender',name: 'cloudwatchlogbackappender' , version: '1.11'
+
+}
+
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'sample.aws.cloudwatch.logs.SampleAWSCloudWatchLogs'
+//    }
+//    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//}
